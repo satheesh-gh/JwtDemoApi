@@ -23,5 +23,23 @@ namespace JwtDemoApi.Controllers
 
             return Ok(departments);
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDepartmentById(short id)
+        {
+            var department =
+                await _repository.GetDepartmentByIdAsync(id);
+
+            if (department == null)
+            {
+                return NotFound(new
+                {
+                    Message = $"Department with ID {id} not found."
+                });
+            }
+
+            return Ok(department);
+        }
+
     }
 }
